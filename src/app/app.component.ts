@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -8,12 +9,16 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  constructor (private httpService: HttpClient) { }
   title = 'prova-target';
 
   ngOnInit() {
     console.log('Oi meu chapa');
-    console.log(this.questao01(13))
-    this.questao02(8)
+    console.log(this.questao01(13));
+    this.questao02(8);
+    //this.questao03();
+    this.questao04();
+    this.questao05();
   }
 
   /**
@@ -54,7 +59,11 @@ export class AppComponent {
   a) Usar o json ou xml disponível como fonte dos dados do faturamento mensal; 
   b) Podem existir dias sem faturamento, como nos finais de semana e feriados. Estes dias devem ser ignorados no cálculo da média; 
    */
-  questao03() {}
+  questao03() {
+    this.httpService.get(`src/assets/dados.json`).subscribe((res)=>{
+      console.log(res)
+    })
+  }
   /**
    * 4) Dado o valor de faturamento mensal de uma distribuidora, detalhado por estado: 
   •	SP – R$67.836,43 
@@ -65,7 +74,17 @@ export class AppComponent {
 
   Escreva um programa na linguagem que desejar onde calcule o percentual de representação que cada estado teve dentro do valor total mensal da distribuidora.  
    */
-  questao04() {}
+  questao04() {
+    let faturamentoEstado = {
+      sp: 67836.43,
+      rj:36678.66,
+      mg:29229.88,
+      es:27165.48,
+      outros:19849.53
+    }
+    //let arrFaturamento = []
+    //console.log(arrFaturamento)
+  }
   /**
    * 5) Escreva um programa que inverta os caracteres de um string. 
 
@@ -73,5 +92,12 @@ export class AppComponent {
   a) Essa string pode ser informada através de qualquer entrada de sua preferência ou pode ser previamente definida no código; 
   b) Evite usar funções prontas, como, por exemplo, reverse; 
    */
-  questao05() {}
+  questao05(stringToMirror='Teste') {
+    let wordSize = stringToMirror.length;
+    let newWord = '';
+    for(let i = wordSize-1; i>=0; i--){
+      newWord += stringToMirror[i];
+    }
+    console.log(`Palavra original => ${stringToMirror} \nPalavra invertida => ${newWord}`)
+  }
 }
