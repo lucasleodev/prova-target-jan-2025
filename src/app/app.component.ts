@@ -53,7 +53,9 @@ Soma => ${soma}
     console.log(`-- QUESTÃO 02 --
 Número a ser achado => ${numToFind}\n
 Lista Fibonacci => ${arrFibonnaci}\n
-Número existe na lista? ${arrFibonnaci.some(numero=>numero==numToFind) ? 'SIM' : 'NÃO'}`);
+Número existe na lista? ${
+      arrFibonnaci.some((numero) => numero == numToFind) ? 'SIM' : 'NÃO'
+    }`);
   }
   /**
    * 3) Dado um vetor que guarda o valor de faturamento diário de uma distribuidora, faça um programa, na linguagem que desejar, que calcule e retorne: 
@@ -79,15 +81,23 @@ Número existe na lista? ${arrFibonnaci.some(numero=>numero==numToFind) ? 'SIM' 
         if (cur.valor > 0) numDias += 1;
         return acc + cur.valor;
       }, 0);
-      mediaFaturamento = sumFaturamento/numDias;
-      let newDados = dados.filter((dadoArr:{valor: any})=>dadoArr.valor>0);
-      menorFaturamento = Math.min.apply(null,newDados.map((item:{valor:any})=>item.valor));
-      maiorFaturamento = Math.max.apply(null,newDados.map((item:{valor:any})=>item.valor));
-      newDados.forEach((dado:{valor:any})=>{
-        if(dado.valor > mediaFaturamento){
+      mediaFaturamento = sumFaturamento / numDias;
+      let newDados = dados.filter(
+        (dadoArr: { valor: any }) => dadoArr.valor > 0
+      );
+      menorFaturamento = Math.min.apply(
+        null,
+        newDados.map((item: { valor: any }) => item.valor)
+      );
+      maiorFaturamento = Math.max.apply(
+        null,
+        newDados.map((item: { valor: any }) => item.valor)
+      );
+      newDados.forEach((dado: { valor: any }) => {
+        if (dado.valor > mediaFaturamento) {
           numMediaMaiorFaturamento += 1;
         }
-      })
+      });
       console.log(`-- QUESTÃO 03 --
 • O menor valor de faturamento ocorrido em um dia do mês;\n=> ${menorFaturamento}
 • O maior valor de faturamento ocorrido em um dia do mês;\n=> ${maiorFaturamento}
@@ -114,9 +124,19 @@ Número existe na lista? ${arrFibonnaci.some(numero=>numero==numToFind) ? 'SIM' 
       es: 27165.48,
       outros: 19849.53,
     };
-    let somaFaturamento = faturamentoEstado;
-    //let arrFaturamento = []
-    console.log(`-- QUESTÃO 04 --`)
+    let porcentagemEstado: any = [];
+    let siglaEstados = Object.keys(faturamentoEstado);
+    let arrFaturamento = Object.values(faturamentoEstado);
+    let somaFaturamento = arrFaturamento.reduce((acc, cur) => acc + cur, 0);
+    console.log('-- QUESTÃO 04 --');
+    arrFaturamento.forEach((valor, pos) => {
+      porcentagemEstado[pos] = (valor / somaFaturamento) * 100;
+      console.log(
+        `Estado: ${siglaEstados[pos].toUpperCase()}\nValor: ${
+          arrFaturamento[pos]
+        }\nValor (em %): ${porcentagemEstado[pos]}`
+      );
+    });
   }
   /**
    * 5) Escreva um programa que inverta os caracteres de um string. 
